@@ -5,7 +5,7 @@ using System.Linq;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [Header("Necessary Components")]
+    [Header("Components")]
     [SerializeField] private GameObject treePrefab;
     [SerializeField] private GameObject groundPrefab;
     [SerializeField] private Transform groundVisual;
@@ -47,7 +47,7 @@ public class LevelGenerator : MonoBehaviour
                 float posY = Random.Range(spawnPosGround.y - (SizeY / 2) + 2f, spawnPosGround.y + (SizeY / 2) - 2f);
                 spawnPosTree = new Vector2(posX, posY);
                 // area checking
-                var nearbyObjects = Physics2D.OverlapCircleAll(spawnPosTree, 2f);
+                var nearbyObjects = Physics2D.OverlapCircleAll(spawnPosTree, 4f);
 
                 if (!nearbyObjects.Any(x => x.CompareTag("Obstacle")))
                     break;
