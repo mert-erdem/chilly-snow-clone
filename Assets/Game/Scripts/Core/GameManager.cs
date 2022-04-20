@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
     }
     private IEnumerator RestartLevelRoutine()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

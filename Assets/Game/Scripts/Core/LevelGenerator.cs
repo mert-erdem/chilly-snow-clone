@@ -17,6 +17,7 @@ public class LevelGenerator : MonoBehaviour
     private float SizeX => groundVisual.localScale.x;
     private float SizeY => groundVisual.localScale.y;
 
+
     void Start() => Generate();
 
     private void Generate()
@@ -53,7 +54,8 @@ public class LevelGenerator : MonoBehaviour
                     break;
             }
 
-            Instantiate(treePrefab, spawnPosTree, Quaternion.identity);
+            var tree = TreePool.Instance.GetObject();
+            tree.position = spawnPosTree;
         }
     }
 }

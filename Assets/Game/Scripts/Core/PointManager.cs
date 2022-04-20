@@ -22,6 +22,7 @@ public class PointManager : Singleton<PointManager>
             timePointIdle += deltaPointIdle;
             currentPoint += pointIdle;
             // update ui
+            CanvasController.Instance.SetCurrentScoreText(currentPoint);
         }      
     }
 
@@ -30,6 +31,7 @@ public class PointManager : Singleton<PointManager>
         currentPoint += pointPerTree;
         pointPerTree += pointDelta;
         // update ui
+        CanvasController.Instance.SetCurrentScoreText(currentPoint);
     }
 
     // level completed action
@@ -47,6 +49,7 @@ public class PointManager : Singleton<PointManager>
     private void ClearCurrentPoint()
     {
         PlayerPrefs.SetInt("CURRENT_POINT", 0);
+        this.enabled = false;
     }
 
     private void OnDisable()
