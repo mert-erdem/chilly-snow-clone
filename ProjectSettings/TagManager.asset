@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - Edge
   - PointArea
+  - Button
   layers:
   - Default
   - TransparentFX

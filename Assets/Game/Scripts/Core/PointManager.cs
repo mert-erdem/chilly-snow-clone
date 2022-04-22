@@ -26,8 +26,10 @@ public class PointManager : Singleton<PointManager>
         }      
     }
 
-    public void AddPoints()
+    public void AddPoints(Vector2 position)
     {
+        CanvasController.Instance.PerformFloatingPoint(pointPerTree, position);// pop-up
+
         currentPoint += pointPerTree;
         pointPerTree += pointDelta;
         // update ui
@@ -43,6 +45,8 @@ public class PointManager : Singleton<PointManager>
 
         if (currentPoint > highScore)
             PlayerPrefs.SetInt("HIGH_SCORE", currentPoint);
+
+        this.enabled = false;
     }
 
     // game over action

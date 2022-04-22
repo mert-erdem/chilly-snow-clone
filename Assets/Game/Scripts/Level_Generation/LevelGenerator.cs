@@ -48,10 +48,11 @@ public class LevelGenerator : MonoBehaviour
                 float posY = Random.Range(spawnPosGround.y - (SizeY / 2) + 2f, spawnPosGround.y + (SizeY / 2) - 2f);
                 spawnPosTree = new Vector2(posX, posY);
                 // area checking
-                var nearbyObjects = Physics2D.OverlapCircleAll(spawnPosTree, 4f);
+                var nearbyObjects = Physics2D.OverlapCircleAll(spawnPosTree, 5f);
 
                 if (!nearbyObjects.Any(x => x.CompareTag("Obstacle")))
                     break;
+
             }
 
             var tree = TreePool.Instance.GetObject();

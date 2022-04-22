@@ -20,13 +20,17 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
             Destroy(gameObject);
 
         DontDestroyOnLoad(this.transform);
+        FillThePool();
     }
 
     private void Start()
     {
         GameManager.ActionLevelPassed += CallBackAllObjects;
-        GameManager.ActionGameOver += CallBackAllObjects;
-        
+        GameManager.ActionGameOver += CallBackAllObjects;       
+    }
+
+    private void FillThePool()
+    {
         pool = new List<T>();
 
         for (int i = 0; i < poolSize; i++)
@@ -49,6 +53,17 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         }
 
         return null;
+    }
+
+    public void BringObject(T bringedObject, float disableTime)
+    {
+        StartCoroutine(BringObjectRoutine(bringedObject, disableTime));
+    }
+    private IEnumerator BringObjectRoutine(T bringedObject, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        bringedObject.gameObject.SetActive(false);
     }
 
     private void CallBackAllObjects()

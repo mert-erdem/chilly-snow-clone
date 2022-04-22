@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [SelectionBase]
 public class PlayerController : MonoBehaviour
@@ -18,7 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
             currentRotZ *= -1;
 
         Move();
@@ -27,12 +29,24 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, currentRotZ), rotSpeed * Time.deltaTime);
-        transform.Translate(-transform.up * speed * Time.deltaTime, Space.World);
+        transform.Translate(speed * Time.deltaTime * -transform.up, Space.World);
     }
 
     private void ChangeMoveState()
     {
         canMove = !canMove;
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        var eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+        {
+            position = new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+        };
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        return results.Count > 1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +58,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (collision.CompareTag("PointArea"))
-            PointManager.Instance.AddPoints();
+            PointManager.Instance.AddPoints(transform.position);
 
         if (collision.CompareTag("Finish"))
             GameManager.ActionLevelPassed?.Invoke();

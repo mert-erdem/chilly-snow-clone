@@ -44,6 +44,10 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
+    public void Pause() => Time.timeScale = 0;
+
+    public void Resume() => Time.timeScale = 1;
+
     private void OnDisable()
     {
         ActionGameOver -= RestartLevel;
