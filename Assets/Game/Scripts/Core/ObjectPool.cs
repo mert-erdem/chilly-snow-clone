@@ -72,7 +72,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
     }
     private IEnumerator CallBackAllObjectsRoutine()
     {
-        yield return new WaitForSeconds(1.5f);// from GameManager
+        yield return new WaitForSeconds(1f);// from GameManager(but 0.5 seconds less)
 
         for (int i = 0; i < poolSize; i++)
         {

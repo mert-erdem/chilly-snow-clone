@@ -52,9 +52,7 @@ public class LevelGenerator : MonoBehaviour
 
                 if (!nearbyObjects.Any(x => x.CompareTag("Obstacle")))
                     break;
-
             }
-
             var tree = TreePool.Instance.GetObject();
             tree.position = spawnPosTree;
         }
